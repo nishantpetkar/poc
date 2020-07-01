@@ -5,7 +5,7 @@ const https = require("https");
 const geohash = require("ngeohash");
 const fs = require("fs");
 
-/* origin and destination expected in (lat,long) format or other google api compatible format */
+/* origin and destination expected in (lat,long) or (start_name, end_name) format or other google api compatible format */
 async function createRoute(origin, destination) {
     return new Promise((resolve, reject) => {
         var url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&sensor=false&mode=driving&key=AIzaSyB8DUoCptnmYmJWyqY6c8UgFIJdgp5_Lk0`;
