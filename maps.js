@@ -4,6 +4,7 @@ const decode = require('geojson-polyline').decode;
 const https = require("https");
 const geohash = require("ngeohash");
 const fs = require("fs");
+var resolution = 6;
 var filename;
 
 /* origin and destination expected in (lat,long) or (start_name, end_name) format or other google api compatible format */
@@ -62,7 +63,7 @@ async function LatLongToGeohash(data) {
             var str = data.toString().split(",");
             var geohash_array = [];
             for(var i = 0; i < str.length; i += 2) {
-                geohash_array.push(geohash.encode(parseFloat(str[i+1]), parseFloat(str[i]), 6));
+                geohash_array.push(geohash.encode(parseFloat(str[i+1]), parseFloat(str[i]), resolution));
             }
             var geohashes = Array.from(new Set(geohash_array));
 
