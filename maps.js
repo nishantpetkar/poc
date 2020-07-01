@@ -4,9 +4,11 @@ const decode = require('geojson-polyline').decode;
 const https = require("https");
 const geohash = require("ngeohash");
 const fs = require("fs");
+var filename;
 
 /* origin and destination expected in (lat,long) or (start_name, end_name) format or other google api compatible format */
 async function createRoute(origin, destination) {
+    filename = `${origin}-${destination}-geohash.csv`;
     return new Promise((resolve, reject) => {
         var url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&sensor=false&mode=driving&key=AIzaSyB8DUoCptnmYmJWyqY6c8UgFIJdgp5_Lk0`;
         https.get(url, (resp) => {
@@ -65,7 +67,7 @@ async function LatLongToGeohash(data) {
             var geohashes = Array.from(new Set(geohash_array));
 
             console.log(geohashes.length);
-            fs.writeFileSync("./route-geohash.csv", geohashes);
+            fs.writeFileSync("./routes/"+filename, geohashes);
             resolve();
         } catch(err) {
             console.log(err);
